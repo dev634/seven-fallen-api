@@ -2,6 +2,7 @@ const http = require('http')
 const express = require('express')
 
 
-http.createServer()
+const server = http.createServer()
+server.listen()
 
 
