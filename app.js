@@ -3,11 +3,11 @@ const app = express()
 
 const port = 3000
 
-/*app.use(express.json)*/
+app.use(express.json)
 
 app.post('/api',async (req,res) => {
     try {
-        console.log(req.headers)
+        console.log(req.body)
         res.send('Hey it\'s me')
     }catch(err) {
         console.log(err.message)
