@@ -5,7 +5,7 @@ const port = 3000
 
 /*app.use(express.json)*/
 
-app.get('/api',async (req,res) => {
+app.post('/api',async (req,res) => {
     try {
         console.log(req)
         res.send('Hey it\'s me')
