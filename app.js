@@ -10,7 +10,7 @@ app.use(express.json)*/
 app.post('/api',async (req,res) => {
     try {
         console.log(req.body)
-        res.send('Hey it\'s me')
+        res.send(req.body)
     }catch(err) {
         console.log(err.message)
     }
