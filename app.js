@@ -5,7 +5,7 @@ const port = 3000
 
 /*app.use(express.json)*/
 
-app.post('/api',async (req,res) => {
+app.get('/api',async (req,res) => {
     try {
         console.log(req.body)
     }catch(err) {
