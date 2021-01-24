@@ -7,6 +7,14 @@ const port = 3000
 app.use(cors())
 app.use(express.json())
 
+app.get('/api',async (req,res) => {
+    try {
+        res.send("Hello i'm your future api !!! ;-)")
+    }catch(err) {
+        console.log(err.message)
+    }
+})
+
 app.post('/api',async (req,res) => {
     try {
         console.log(req.body)
