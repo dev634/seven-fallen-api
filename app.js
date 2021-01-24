@@ -12,15 +12,13 @@ app.use(express.json())
 app.post('/user',async (req,res) => {
     try{
         console.log(req.body.firstname)
+        console.log(req.body.lastname)
+        console.log(req.body.email)
     }catch(err){
         console.log(err.message)
     }
 })
 
-//GET user
-app.get('/api/user', () => {
-
-})
 
 app.listen(port , () => {
     console.log(`Listen on port ${port}`)
