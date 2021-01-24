@@ -9,7 +9,7 @@ app.use(express.json())
 //Create User 
 app.post('/user',async (req,res) => {
     try{
-        console.log(req.body)
+        console.log(req.body.firstname)
     }catch(err){
         console.log(err.message)
     }
