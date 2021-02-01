@@ -16,6 +16,15 @@ const saltRounds = 10;
 
 //* App settings
 app.use(express.urlencoded({ extend: true }));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 //*Strategies session settings
 
@@ -28,11 +37,13 @@ app.route("/").get((req, res) => {
   res.send("<h1>Hello World ! </h1>");
 });
 //* Route User
-app.post("/user", async (req, res) => {
+app.route("/user").post(async (req, res) => {
   try {
-    console.log(req.body.firstname);
-    console.log(req.body.lastname);
-    console.log(req.body.email);
+    bcrypt.hash(req.body.test, saltRounds, (err, hash) => {
+      if (!err) {
+        console.log(hash);
+      }
+    });
   } catch (err) {
     console.log(err.message);
   }
