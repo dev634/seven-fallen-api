@@ -43,10 +43,8 @@ app.route("/user").post(async (req, res) => {
       
       if (!err) {
         console.log(hash);
-        res.statusCode = 200;
-        res.json({
-            title:"OK"
-        })
+        const firstName = req.body.firstname;
+        const newUser = pool.query("INSERT INTO Users(firstname) VALUES($1)",[firstname]);
       }
     });
   } catch (err) {
