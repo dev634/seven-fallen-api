@@ -33,7 +33,7 @@ app.use(express.json());
 
 //! Requests session settings
 //* Route TEST
-app.route("/").get((req, res) => {
+app.route("/api").get((req, res) => {
   res.send("<h1>Hello World ! </h1>");
 });
 //* Route User
