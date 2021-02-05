@@ -43,7 +43,10 @@ app.route("/user").post(async (req, res) => {
       
       if (!err) {
         console.log(hash);
-        console.log(res.statusCode);
+        res.statusCode = 200;
+        res.json({
+            title:"OK"
+        })
       }
     });
   } catch (err) {
