@@ -40,8 +40,10 @@ app.route("/api").get((req, res) => {
 app.route("/user").post(async (req, res) => {
   try {
     bcrypt.hash(req.body.test, saltRounds, (err, hash) => {
+      
       if (!err) {
         console.log(hash);
+        console.log(res.statusCode);
       }
     });
   } catch (err) {
