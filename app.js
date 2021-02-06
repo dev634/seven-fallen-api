@@ -46,6 +46,7 @@ app.route("/user").post(async (req, res) => {
       console.log(hash);
     });
     const firstName = req.body.firstname;
+    console.log(process.env.DB_USER)
     console.log(process.env.DB_PWD)
     const newUser = await pool.query("INSERT INTO Users(firstname) VALUES($1)",[firstName]);
     console.log(newUser);
