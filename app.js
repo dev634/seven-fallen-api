@@ -39,7 +39,8 @@ app.route("/api").get((req, res) => {
 //* Route User
 app.route("/user").post(async (req, res) => {
   try {
-    const {firstname,lastname,email} = JSON.parse(req.body);
+    const {firstname,lastname,email} = req.body;
+    console.log(req.body)
     const newUser = await pool.query("INSERT INTO Users(firstname,lastname,usermail) VALUES($1,$2,$3)",[firstname,lastname,email]);
     console.log(newUser);
     res.json(newUser)
