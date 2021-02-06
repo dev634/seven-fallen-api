@@ -34,9 +34,23 @@ app.use(express.json());
 //! Requests session settings
 //* Route TEST
 app.route("/api").get((req, res) => {
-  res.send("<h1>Hello World !</h1>");
+    res.send("<h1>Hello World !</h1>");
 });
-//* Route User
+
+
+app.route("/users").get(async (req,res) => {
+    try{
+        const getUsers = pool.query("SELECT * FROM users");
+        res.json(getUSers);
+    }catch(err){
+        res.json({
+            message: err.message,
+        })
+    }
+})
+
+
+//* Insert a user
 app.route("/user").post(async (req, res) => {
   try {
     const {firstname,lastname,email} = req.body;
