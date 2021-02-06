@@ -44,11 +44,11 @@ app.route("/user").post(async (req, res) => {
         console.log(err.message)
       }
       console.log(hash);
-      const firstName = req.body.firstname;
-      const newUser = await pool.query("INSERT INTO Users(firstname) VALUES($1)",[firstName]);
-      console.log(newUser);
-
     });
+
+    const firstName = req.body.firstname;
+    const newUser = await pool.query("INSERT INTO Users(firstname) VALUES($1)",[firstName]);
+    console.log(newUser);
   } catch (err) {
     console.log(err.message);
   }
