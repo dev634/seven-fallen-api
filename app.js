@@ -39,13 +39,15 @@ app.route("/api").get((req, res) => {
 //* Route User
 app.route("/user").post(async (req, res) => {
   try {
-    bcrypt.hash(req.body.test, saltRounds, (err, hash) => {
-      
-      if (!err) {
-        console.log(hash);
-        const firstName = req.body.firstname;
-        const newUser = pool.query("INSERT INTO Users(firstname) VALUES($1)",[firstname]);
+    bcrypt.hash(req.body.test, saltRounds, (err, hash) => { 
+      if (err) {
+        console.log(err.message)
       }
+      console.log(hash);
+      const firstName = req.body.firstname;
+      const newUser = await pool.query("INSERT INTO Users(firstname) VALUES($1)",[firstName]);
+      console.log(newUser);
+
     });
   } catch (err) {
     console.log(err.message);
