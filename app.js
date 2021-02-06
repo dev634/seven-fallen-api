@@ -15,7 +15,7 @@ const port = 3000;
 const saltRounds = 10;
 
 //* App settings
-app.use(express.urlencoded({ extend: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
