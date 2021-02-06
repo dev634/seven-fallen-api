@@ -41,7 +41,7 @@ app.route("/user").post(async (req, res) => {
   try {
     const {firstname,lastname,email} = req.body;
     console.log(firstname);
-    console.log(email)
+    console.log(typeof email)
     const newUser = await pool.query("INSERT INTO Users(firstname,lastname,usermail) VALUES($1,$2,$3)",[firstname,lastname,email]);
     console.log(newUser);
     res.json(newUser)
