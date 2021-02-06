@@ -40,7 +40,7 @@ app.route("/api").get((req, res) => {
 
 app.route("/users").get(async (req,res) => {
     try{
-        const getUsers = pool.query("SELECT * FROM users");
+        const getUsers = await pool.query("SELECT * FROM users");
         res.json(getUsers);
     }catch(err){
         res.json({
