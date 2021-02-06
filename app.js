@@ -41,7 +41,7 @@ app.route("/api").get((req, res) => {
 app.route("/users").get(async (req,res) => {
     try{
         const getUsers = await pool.query("SELECT * FROM users");
-        res.json(getUsers);
+        res.json(getUsers.rows);
     }catch(err){
         res.json({
             message: err.message,
