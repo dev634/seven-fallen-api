@@ -33,8 +33,10 @@ app.use(express.json());
 
 //! Requests session settings
 //* Route TEST
-app.route("/api").get((req, res) => {
-    res.send("<h1>Hello World !</h1>");
+app.route("/api/:id").get((req, res) => {
+  const param = req.params;
+  res.json(param)
+    //res.send("<h1>Hello World !</h1>");
 });
 
 //Get all users
