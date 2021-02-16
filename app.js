@@ -74,6 +74,8 @@ app.route('/user/update/:id').patch(async (req, res) => {
     const body = req.body;
     const requestFields = Object.keys(body).join();
     const requestValues = Object.values(body).join()
+    const updatedUser = await pool.query(`UPDATE INTO Users(${requestFields}) VALUES(${requestValues}) WHERE userid = $1 RETURNING *`,[id]);
+    res.json(updatedUser);
   }catch(err){
     res.json({
       message: err.message
