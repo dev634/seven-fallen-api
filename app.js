@@ -27,7 +27,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //*Strategies session settings
-
 app.use(cors());
 app.use(express.json());
 
@@ -51,6 +50,21 @@ app.route("/users").get(async (req,res) => {
     }
 })
 
+//Get a user
+app.route('/user/:id').get(async (req,res)=>{
+  try{
+    const body = req.body;
+    const id = req.params.id;
+    const getUsers = await pool.query('SELECT * FROM Users WHERE id = $1',[id]);
+    res.json(getUser.rows);
+  }catch(err){
+    res.json({
+      code: err.status,
+      message:err.message
+    });
+  }
+});
+
 
 //Insert a user
 app.route("/user").post(async (req, res) => {
@@ -67,7 +81,6 @@ app.route("/user").post(async (req, res) => {
 });
 
 //Update a user
-
 app.route('/user/update/:id').patch(async (req, res) => {
   try{
     const id = req.params.id;
