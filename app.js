@@ -74,8 +74,9 @@ app.route('/user/update/:id').patch(async (req, res) => {
     const body = req.body;
     const dataTab = [];
     for(const property in body){
-      dataTab.push(property);
+      dataTab.push(body[property]);
     }
+    console.log(body.keys());
     console.log(dataTab);
   }catch(err){
     res.json({
