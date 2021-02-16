@@ -53,15 +53,8 @@ app.route("/users").get(async (req,res) => {
 //Insert a user
 app.route("/user").post(async (req, res) => {
   try {
-
     const {firstname,lastname,email,password} = req.body;
-    const hashedPassword = bcrypt.hash(password, saltRounds, (err, hash) => { 
-        if (err) {
-          console.log(err.message);
-        }
-        return hash;
-      });
-    console.log(hashedPassword);
+    const hashedPassword = await bcrypt.hash(password,saltRounds); 
     const newUser = await pool.query("INSERT INTO Users(firstname,lastname,usermail,password) VALUES($1,$2,$3,$4) RETURNING *",[firstname,lastname,email,hashedPassword]);
     res.json(newUser)
   } catch (err) {
