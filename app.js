@@ -56,11 +56,12 @@ app.route('/user/:id').get(async (req,res)=>{
     const id = req.params.id;
     const getUser = await pool.query('SELECT * FROM Users WHERE userid = $1',[id]);
     if(getUser.rowCount === 0){
-      throw new Error(`User with id ${id} doesn\'t exist `);
+      throw new Error('This user doesn\'t exist');
     }
     res.json(getUser.rows);
   }catch(err){
     res.status(404).json({
+      status : this,
       message: err.message
     });
   }
