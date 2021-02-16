@@ -68,8 +68,18 @@ app.route("/user").post(async (req, res) => {
 
 //Update a user
 
-app.route('/user').put(async (req, res) => {
-
+app.route('/user/update/:id').patch(async (req, res) => {
+  try{
+    const id = req.params.id;
+    const body = req.body;
+    for(const property in body){
+      console.log(`${property} :  ${object[property]}`);
+    }
+  }catch(err){
+    res.json({
+      message: err.message
+    });
+  }
 })
 
 //Delete a user
