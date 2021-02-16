@@ -57,10 +57,10 @@ app.route("/user").post(async (req, res) => {
     const {firstname,lastname,email,password} = req.body;
     const hashedPassword = await bcrypt.hash(password, saltRounds, (err, hash) => { 
         if (err) {
-          console.log(err.message)
-        }else{
-          return hash;
-        }  
+          reject(err.message);
+        }
+        resolve(hash);
+          
       });
     console.log(hashedPassword);
     const newUser = await pool.query("INSERT INTO Users(firstname,lastname,usermail,password) VALUES($1,$2,$3,$4) RETURNING *",[firstname,lastname,email,hashedPassword]);
