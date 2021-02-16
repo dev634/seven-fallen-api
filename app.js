@@ -65,7 +65,7 @@ app.route("/user").post(async (req, res) => {
 });
 
 //Delete a user
-app.route("/user/:id").delete(async (req,res) => {
+app.route("/user").delete(async (req,res) => {
   const params = req;
   console.log(params);
 })
