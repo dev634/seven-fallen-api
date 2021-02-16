@@ -75,7 +75,7 @@ app.route("/user").delete(async (req,res) => {
   try{
     const {id} = req.body;
     const deletedUser = await pool.query("DELETE FROM Users WHERE userid = $1 RETURNING usermail", [id] );
-    res.json(deletedUser);
+    res.json(deletedUser.rows);
   }catch(err){
     res.json({
       message : err.message
