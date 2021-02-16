@@ -61,6 +61,7 @@ app.route("/user").post(async (req, res) => {
         }
         return hash;
       });
+    console.log(hashedPassword);
     const newUser = await pool.query("INSERT INTO Users(firstname,lastname,usermail,password) VALUES($1,$2,$3,$4) RETURNING *",[firstname,lastname,email,hashedPassword]);
     res.json(newUser)
   } catch (err) {
