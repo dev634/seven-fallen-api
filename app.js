@@ -64,7 +64,6 @@ app.route('/user/:id').get(async (req,res)=>{
   }
 });
 
-
 //Insert a user
 app.route("/user").post(async (req, res) => {
   try {
