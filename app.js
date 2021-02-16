@@ -72,9 +72,14 @@ app.route('/user/update/:id').patch(async (req, res) => {
   try{
     const id = req.params.id;
     const body = req.body;
+    const dataTab = [];
+    for(property in body){
+      dataTab.push(`${property} = ${body[property]}`);
+    }
+    console.log(dataTab);
     const settingString = '';
-    const updatedUser = await pool.query(`UPDATE Users SET ${settingString} WHERE userid = $1 RETURNING *`,[id]);
-    res.json(updatedUser);
+    // const updatedUser = await pool.query(`UPDATE Users SET ${settingString} WHERE userid = $1 RETURNING *`,[id]);
+    res.json(dataTab);
   }catch(err){
     res.json({
       message: err.message
