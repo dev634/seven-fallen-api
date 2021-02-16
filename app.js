@@ -64,12 +64,25 @@ app.route("/user").post(async (req, res) => {
   }
 });
 
+//Update a user
+
+app.route('/user').put(async (req, res) => {
+
+})
+
 //Delete a user
 app.route("/user").delete(async (req,res) => {
-  const {id} = req.body;
-  const deletedUser = await pool.query("DELETE FROM Users WHERE userid = $1 RETURNING *", [id] );
-  res.json(deletedUser);
+  try{
+    const {id} = req.body;
+    const deletedUser = await pool.query("DELETE FROM Users WHERE userid = $1 RETURNING usermail", [id] );
+    res.json(deletedUser);
+  }catch(err){
+    res.json({
+      message : err.message
+    });
+  }
 })
+
 //! Server Settings
 app.listen(port, () => {
   console.log(`Listen on port ${port}`);
