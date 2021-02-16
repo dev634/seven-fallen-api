@@ -66,8 +66,8 @@ app.route("/user").post(async (req, res) => {
 
 //Delete a user
 app.route("/user/:id").delete(async (req,res) => {
-  const params = req.params;
-  res.json(params);
+  const params = req;
+  console.log(params);
 })
 //! Server Settings
 app.listen(port, () => {
