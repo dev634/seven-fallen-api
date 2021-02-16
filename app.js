@@ -37,7 +37,7 @@ app.route("/api").get((req, res) => {
     res.send("<h1>Hello World !</h1>");
 });
 
-
+//Get all users
 app.route("/users").get(async (req,res) => {
     try{
         const getUsers = await pool.query("SELECT * FROM users");
@@ -50,25 +50,29 @@ app.route("/users").get(async (req,res) => {
 })
 
 
-//* Insert a user
+//Insert a user
 app.route("/user").post(async (req, res) => {
   try {
-    const {firstname,lastname,email} = req.body;
-    console.log(req.body)
-    const newUser = await pool.query("INSERT INTO Users(firstname,lastname,usermail) VALUES($1,$2,$3) RETURNING *",[firstname,lastname,email]);
-    res.json(newUser)
-    bcrypt.hash(req.body.test, saltRounds, (err, hash) => { 
-    if (err) {
-        
-        console.log(err.message)
-      }
-      console.log(hash);
-    });
 
+    const {firstname,lastname,email,password} = req.body;
+    console.log(password);
+    const hashedPassword = await bcrypt.hash(password, saltRounds, (err, hash) => { 
+      if (err) {
+          
+          console.log(err.message)
+        }
+        console.log(hash);
+      });
+    const newUser = await pool.query("INSERT INTO Users(firstname,lastname,usermail,password) VALUES($1,$2,$3,$4) RETURNING *",[firstname,lastname,email,hashedPassword]);
+    res.json(newUser)
   } catch (err) {
-    console.log(err.message);
+        res.json({
+            message: err.message,
+        })
   }
 });
+
+//Delete a user
 
 //! Server Settings
 app.listen(port, () => {
