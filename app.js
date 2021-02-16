@@ -61,7 +61,7 @@ app.route('/user/:id').get(async (req,res)=>{
     res.json(getUser.rows);
   }catch(err){
     res.status(404).json({
-      status : this,
+      status : res.statusCode,
       message: err.message
     });
   }
