@@ -57,7 +57,7 @@ app.route('/user/:id').get(async (req,res)=>{
     const getUser = await pool.query('SELECT * FROM Users WHERE userid = $1',[id]);
     res.json(getUser.rows);
   }catch(err){
-    res.json({
+    res.status(404).json({
       code: this.status,
       message:err.message
     });
