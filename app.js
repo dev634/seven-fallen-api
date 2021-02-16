@@ -76,7 +76,7 @@ app.route('/user/update/:id').patch(async (req, res) => {
     for(const property in body){
       dataTab.push(body[property]);
     }
-    console.log(body.keys());
+    console.log(Object.keys(body));
     console.log(dataTab);
   }catch(err){
     res.json({
