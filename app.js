@@ -74,7 +74,7 @@ app.route('/user/update/:id').patch(async (req, res) => {
     const body = req.body;
     const dataTab = [];
     for(property in body){
-      dataTab.push(`${property} = ${body[property]}`);
+      dataTab.push(`${property} = \'${body[property]}\'`);
     }
     
     const settingString = dataTab.join();
