@@ -66,7 +66,7 @@ app.route("/user").post(async (req, res) => {
 
 //Delete a user
 app.route("/user").delete(async (req,res) => {
-  const params = req;
+  const params = req.body;
   console.log(params);
 })
 //! Server Settings
