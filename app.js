@@ -34,8 +34,7 @@ app.use(express.json());
 //* Route TEST
 app.route("/api/:id").get((req, res) => {
   const param = req.params;
-  res.json(param)
-    //res.send("<h1>Hello World !</h1>");
+  res.json(param);
 });
 
 //Get all users
