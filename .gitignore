@@ -1,5 +1,6 @@
 
 db.js
+
 # Logs
 logs
 *.log
@@ -43,6 +44,7 @@ build/Release
 node_modules/
 jspm_packages/
 sql/
+
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
