@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start:db": "pg_ctl start && psql -U postgres",
+    "start:db": "pg_ctl start",
+    "connect:db" : "psql -U postgres",
     "start:api": "node app.js"
   },
   "keywords": [],
