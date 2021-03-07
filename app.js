@@ -80,7 +80,7 @@ app.route("/user").post(async (req, res) => {
   }
 });
 
-//Update a user
+/* Update a user */
 app.route('/user/update/:id').patch(async (req, res) => {
   try{
     const id = req.params.id;
