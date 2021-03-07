@@ -79,7 +79,7 @@ app.route("/user").post(async (req, res) => {
       .catch((err) => {
         if(err){
           res.status(400).json({
-            status: err.statusCode,
+            status: this.statusCode,
             message: 'Bad request this user already exist try an other email or username ...'
           });
         }
