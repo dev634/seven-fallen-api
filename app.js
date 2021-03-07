@@ -41,9 +41,13 @@ app.route("/api/:id").get((req, res) => {
 app.route("/users").get(async (req,res) => {
     try{
         const getUsers = await pool.query("SELECT * FROM users");
+        if(!getUsers){
+          throw new Error('Resources not found...');
+        }
         res.json(getUsers.rows);
     }catch(err){
-        res.json({
+        res.status(404).json({
+            status : res.statusCode,
             message: err.message,
         })
     }
@@ -69,9 +73,9 @@ app.route('/user/:id').get(async (req,res)=>{
 //Insert a user
 app.route("/user").post(async (req, res) => {
   try {
-    const {firstname,lastname,email,password} = req.body;
+    const {username,email,password} = req.body;
     const hashedPassword = await bcrypt.hash(password,saltRounds); 
-    const newUser = await pool.query("INSERT INTO Users(firstname,lastname,usermail,password) VALUES($1,$2,$3,$4) RETURNING *",[firstname,lastname,email,hashedPassword]);
+    const newUser = await pool.query("INSERT INTO Users(username,email,password) VALUES($1,$2,$3) RETURNING *",[username,email,hashedPassword]);
     res.json(newUser)
   } catch (err) {
         res.json({
