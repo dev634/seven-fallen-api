@@ -83,6 +83,7 @@ app.route("/user").post(async (req, res) => {
             status : err.statusCode,
             message: err.message
         })
+        res.json(newUser)
   }
 });
 
