@@ -61,7 +61,7 @@ app.route("/users").get(async (req,res) => {
 app.route('/user/:id').get(async (req,res)=>{
   try{
     const id = req.params.id;
-    const getUser = await pool.query('SELECT username, email FROM Users WHERE userid = $1',[id]);
+    const getUser = await pool.query('SELECT username, email FROM users WHERE userid = $1',[id]);
     if(getUser.rowCount === 0){
 
       throw new Error('This user doesn\'t exist');
