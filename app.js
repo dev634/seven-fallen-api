@@ -65,6 +65,7 @@ app.route('/user/:id').get(async (req,res)=>{
         err.statusCode = 404,
         err.message = 'User not found ...'
       }
+      throw err;
     });
     if(getUser.rowCount === 0){
       throw new Error('This user doesn\'t exist');
