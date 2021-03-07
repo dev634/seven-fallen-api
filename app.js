@@ -61,7 +61,10 @@ app.route('/user/:id').get(async (req,res)=>{
   try{
     const id = req.params.id;
     const getUser = await pool.query('SELECT username, email FROM users WHERE id = $1',[id]).catch((err)=> {
-      err.message = 'This user doesn\'t exist'
+      if(err){
+        err.statusCode = 404,
+        err.message = 'User not found ...'
+      }
     });
     if(getUser.rowCount === 0){
       throw new Error('This user doesn\'t exist');
@@ -69,7 +72,7 @@ app.route('/user/:id').get(async (req,res)=>{
     res.json(getUser.rows);
   }catch(err){
     res.status(404).json({
-      status : res.statusCode,
+      status : err.statusCode,
       message: err.message
     });
   }
