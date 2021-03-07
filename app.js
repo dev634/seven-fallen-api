@@ -44,7 +44,7 @@ app.route("/users").get(async (req,res) => {
         if(getUsers === []){
           throw new Error('Resources not found...');
         }
-        res.json(getUsers.rows);
+        res.json(getUsers);
     }catch(err){
         res.status(404).json({
             status : res.statusCode,
