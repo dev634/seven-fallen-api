@@ -44,9 +44,8 @@ app.route("/users").get(async (req,res) => {
         if(getUsers.rowCount === 0){
           res.status(404).json({
             status : res.statusCode,
-            message : "Aucun utilisateur trouvé"
+            message : "'Resources not found...'"
           });
-          throw new Error('Resources not found...');
         }
         res.json(getUsers.rows);
     }catch(err){
@@ -61,9 +60,10 @@ app.route("/users").get(async (req,res) => {
 app.route('/user/:id').get(async (req,res)=>{
   try{
     const id = req.params.id;
-    const getUser = await pool.query('SELECT username, email FROM users WHERE id = $1',[id]);
+    const getUser = await pool.query('SELECT username, email FROM users WHERE id = $1',[id]).catch((err)=> {
+      err.message = 'This user doesn\'t exist'
+    });
     if(getUser.rowCount === 0){
-
       throw new Error('This user doesn\'t exist');
     }
     res.json(getUser.rows);
