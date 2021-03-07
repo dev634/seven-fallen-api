@@ -124,6 +124,11 @@ app.route('/user/update/:id').patch(async (req, res) => {
           throw err;
         }
       });
+    if(updatedUser.rowCount === 0){
+      const updateError = new Error('Bad request this user doesn\'t exist');
+      updateError.statusCode = 404
+      throw updateError;
+    }
     res.json(updatedUser.rows);
   }catch(err){
     res.status(err.statusCode).json({
