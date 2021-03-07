@@ -85,7 +85,7 @@ app.route("/user").post(async (req, res) => {
       });
     res.json({
       status: 201,
-      message : `${newUser.username} a bien etait créé.`
+      message : `${newUser.rows.username} a bien etait créé.`
     })
   } catch (err) {
 
