@@ -116,12 +116,14 @@ app.route('/user/update/:id').patch(async (req, res) => {
     }
     const settingString = dataTab.join();
     console.log(settingString);
-    const updatedUser = await pool.query(`UPDATE users SET ${settingString} WHERE id = $1 RETURNING username`,[id]);
-    if(updatedUser.rowCount === 0){
-      const updateError = new Error('Something bad happened');
-      updateError.statusCode = 404;
-      throw updateError;
-    }
+    const updatedUser = await pool.query(`UPDATE users SET ${settingString} WHERE id = $1 RETURNING username`,[id])
+      .catch((err) => {
+        if(err){
+          err.statusCode = 400;
+          err.message = 'Bad request this user doesn\'t exist';
+          throw err;
+        }
+      });
     res.json(updatedUser.rows);
   }catch(err){
     res.status(err.statusCode).json({
