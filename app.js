@@ -78,6 +78,7 @@ app.route("/user").post(async (req, res) => {
     const newUser = await pool.query("INSERT INTO Users(username,email,password) VALUES($1,$2,$3) RETURNING username,email",[username,email,hashedPassword]).catch((err) => {
       const myError = new Error('Bad request or this user already exist ...');
       myError.prototype.statusCode = 400;
+      console.log(myError);
       throw myError;
     });
 
