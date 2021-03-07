@@ -119,7 +119,7 @@ app.route('/user/update/:id').patch(async (req, res) => {
     const updatedUser = await pool.query(`UPDATE users SET ${settingString} WHERE id = $1 RETURNING username`,[id])
       .catch((err) => {
         if(err){
-          err.statusCode = 400;
+          err.statusCode = 404;
           err.message = 'Bad request this user doesn\'t exist';
           throw err;
         }
@@ -129,7 +129,7 @@ app.route('/user/update/:id').patch(async (req, res) => {
       updateError.statusCode = 404
       throw updateError;
     }
-    res.json(updatedUser.rows);
+    res.json(`${updatedUser.rows[0].username} a bien etait mis a jour ...`);
   }catch(err){
     res.status(err.statusCode).json({
       status: err.statusCode,
