@@ -79,7 +79,8 @@ app.route("/user").post(async (req, res) => {
     res.json(newUser.rowsCount)
   } catch (err) {
         res.status(404).json({
-            message: err.message,
+            status : err.statusCode,
+            message: err.message
         })
   }
 });
