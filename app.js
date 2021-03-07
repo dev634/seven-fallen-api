@@ -40,11 +40,11 @@ app.route("/api/:id").get((req, res) => {
 //Get all users
 app.route("/users").get(async (req,res) => {
     try{
-        const getUsers = await pool.query("SELECT * FROM users");
+        const getUsers = await pool.query("SELECT username,email FROM users");
         if(getUsers.rowCount === 0){
           throw new Error('Resources not found...');
         }
-        res.json(getUsers.rowCount);
+        res.json(getUsers.rows);
     }catch(err){
         res.status(404).json({
             status : res.statusCode,
