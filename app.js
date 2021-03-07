@@ -59,6 +59,7 @@ app.route('/user/:id').get(async (req,res)=>{
     const id = req.params.id;
     const getUser = await pool.query('SELECT * FROM Users WHERE userid = $1',[id]);
     if(getUser.rowCount === 0){
+
       throw new Error('This user doesn\'t exist');
     }
     res.json(getUser.rows);
@@ -71,7 +72,7 @@ app.route('/user/:id').get(async (req,res)=>{
 });
 
 //Insert a user
-app.route("/user").post(async (req, res) => {
+app.route("/user/create").post(async (req, res) => {
   try {
     const {username,email,password} = req.body;
     const hashedPassword = await bcrypt.hash(password,saltRounds); 
@@ -83,7 +84,7 @@ app.route("/user").post(async (req, res) => {
           throw err;
         }
       });
-    res.json({
+    res.status(201).json({
       status: 201,
       message : `${newUser.rows[0].username} a bien etait créé.`
     })
