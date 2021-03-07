@@ -75,7 +75,15 @@ app.route("/user").post(async (req, res) => {
   try {
     const {username,email,password} = req.body;
     const hashedPassword = await bcrypt.hash(password,saltRounds); 
-    const newUser = await pool.query("INSERT INTO Users(username,email,password) VALUES($1,$2,$3) RETURNING username,email",[username,email,hashedPassword]).catch(err => res.json(err));
+    const newUser = await pool.query("INSERT INTO Users(username,email,password) VALUES($1,$2,$3) RETURNING username,email",[username,email,hashedPassword])
+      .catch((err) => {
+        if(err){
+          res.status(400).json({
+            status: statusCode,
+            message: 'Bad request this user already exist try an other email or username ...'
+          });
+        }
+      });
     res.json(newUser)
   } catch (err) {
 
