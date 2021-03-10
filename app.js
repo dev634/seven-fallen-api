@@ -88,23 +88,24 @@ app.route("/user/subscribe").post(async (req, res) => {
       const form = formidable({ multiples: true });
       
       //const hashedPassword = await bcrypt.hash(password,saltRounds);
-      let formResult = form.parse(req, (err, fields, files) => {
+      form.parse(req, async (err, fields, files) => {
         if(err){
           res.json(err.message)
         }
-        console.log(fields)
+
+        const newUser = await pool.query(
+          "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
+          [username,email]
+        ).catch((err) => {
+            if(err){
+              err.statusCode = 422;
+              err.message = 'Bad request this user already exist try an other email or username ...';
+              throw err;
+            }
+        });
+
       });
 
-    const newUser = await pool.query(
-      "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
-      [username,email]
-    ).catch((err) => {
-        if(err){
-          err.statusCode = 422;
-          err.message = 'Bad request this user already exist try an other email or username ...';
-          throw err;
-        }
-    });
     res.status(201).json({
       status: res.statusCode,
       message : `${newUser.rows[0].username} a bien etait créé.`
