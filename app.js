@@ -81,10 +81,10 @@ app.route('/user/find/:id').get(async (req,res)=>{
 
 //Insert a user
 app.route("/user/subscribe").post(async (req, res) => {
-  try {
-    const {username,email,password} = req.body;
+  //try {
+    //const {username,email,password} = req.body;
     console.log(req.body)
-    const hashedPassword = await bcrypt.hash(password,saltRounds); 
+    /*const hashedPassword = await bcrypt.hash(password,saltRounds); 
     const newUser = await pool.query("INSERT INTO Users(firstname,lastname,username,email,password) VALUES($1,$2,$3) RETURNING username,email",[username,email,hashedPassword])
       .catch((err) => {
         if(err){
@@ -103,7 +103,7 @@ app.route("/user/subscribe").post(async (req, res) => {
         status : err.statusCode,
         message: err.message
     })
-  }
+  }*/
 });
 
 /* Update a user */
