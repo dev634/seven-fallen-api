@@ -28,7 +28,7 @@ app.use(passport.session());
 
 //*Strategies session settings
 app.use(cors());
-app.use(express.json());
+//app.use(express.json());
 
 //! Requests session settings
 //* Route TEST
