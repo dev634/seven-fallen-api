@@ -10,13 +10,14 @@ const bcrypt = require("bcrypt");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
 
+
 //* Variables
 const app = express();
 const port = 3000;
 const saltRounds = 10;
 
 //* App settings
-let urlBodyParser = bodyParser.urlencoded({ extended: true });
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -81,7 +82,7 @@ app.route('/user/find/:id').get(async (req,res)=>{
 });
 
 //Insert a user
-app.post("/user/subscribe",async (req, res) => {
+app.route("/user/subscribe").post(async (req, res) => {
   //try {
     //const {username,email,password} = req.body;
     console.log(req.body)
