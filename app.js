@@ -92,7 +92,6 @@ app.route("/user/subscribe").post(async (req, res) => {
         if(err){
           res.json(err.message)
         }
-
         const newUser = await pool.query(
           "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
           [fields.username,fields.email]
@@ -103,14 +102,11 @@ app.route("/user/subscribe").post(async (req, res) => {
               throw err;
             }
         });
-
+        res.status(201).json({
+          status: res.statusCode,
+          message : `${newUser.rows[0].username} a bien etait créé.`
+        })
       });
-
-    res.status(201).json({
-      status: res.statusCode,
-      message : `${newUser.rows[0].username} a bien etait créé.`
-    })
-
   } catch (err) {
       res.json({
           status : err.statusCode,
