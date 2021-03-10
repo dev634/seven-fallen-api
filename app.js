@@ -80,14 +80,14 @@ app.route('/user/find/:id').get(async (req,res)=>{
 });
 
 //Insert a user
-app.route("/user/create").post(async (req, res) => {
+app.route("/user/subscribe").post(async (req, res) => {
   try {
     const {username,email,password} = req.body;
     const hashedPassword = await bcrypt.hash(password,saltRounds); 
-    const newUser = await pool.query("INSERT INTO Users(username,email,password) VALUES($1,$2,$3) RETURNING username,email",[username,email,hashedPassword])
+    const newUser = await pool.query("INSERT INTO Users(firstname,lastname,username,email,password) VALUES($1,$2,$3) RETURNING username,email",[username,email,hashedPassword])
       .catch((err) => {
         if(err){
-          err.statusCode = 400;
+          err.statusCode = 422;
           err.message = 'Bad request this user already exist try an other email or username ...';
           throw err;
         }
