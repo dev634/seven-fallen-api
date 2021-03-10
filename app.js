@@ -10,7 +10,7 @@ const bcrypt = require("bcrypt");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
 const formidable = require("formidable");
-//const form = formidable({ multiples: true });
+
 
 //* Variables
 const app = express();
@@ -85,7 +85,7 @@ app.route('/user/find/:id').get(async (req,res)=>{
 //Insert a user
 app.route("/user/subscribe").post(async (req, res) => {
   //try {
-
+    const form = formidable({ multiples: true });
     form.parse(req, (err, fields, files) => {
       console.log(fields)
       res.json(fields)
