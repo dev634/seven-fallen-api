@@ -10,7 +10,7 @@ const bcrypt = require("bcrypt");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
 const formidable = require('formidable');
-const form = formidable({ multiples: true });
+//const form = formidable({ multiples: true });
 
 //* Variables
 const app = express();
