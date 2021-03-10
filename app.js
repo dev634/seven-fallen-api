@@ -87,13 +87,13 @@ app.route("/user/subscribe").post(async (req, res) => {
   try {
     const form = formidable({ multiples: true });
     const hashedPassword = await bcrypt.hash(password,saltRounds);
-    const formFields = form.parse(req, (err, fields, files) => {
+    form.parse(req, (err, fields, files) => {
       if(err){
         res.json(err.message)
       }
-      return fields;
+      console.log(fields);
     });
-    console.log(formFields);
+
     const newUser = await pool.query(
                         "INSERT INTO Users(firstname,lastname,username,email,password) VALUES($1,$2,$3) RETURNING username,email",
                         [username,email,hashedPassword])
