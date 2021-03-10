@@ -1,5 +1,6 @@
 //* Dependencies
 require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const pool = require("./db");
@@ -15,7 +16,7 @@ const port = 3000;
 const saltRounds = 10;
 
 //* App settings
-app.use(express.urlencoded({ extended: true }));
+let urlBodyParser = bodyParser.urlencoded({ extended: true }));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -80,10 +81,10 @@ app.route('/user/find/:id').get(async (req,res)=>{
 });
 
 //Insert a user
-app.route("/user/subscribe").post(async (req, res) => {
+app.route("/user/subscribe").urlBodyParser().post(async (req, res) => {
   //try {
     //const {username,email,password} = req.body;
-    console.log(req.username)
+    console.log(req.body)
     /*const hashedPassword = await bcrypt.hash(password,saltRounds); 
     const newUser = await pool.query("INSERT INTO Users(firstname,lastname,username,email,password) VALUES($1,$2,$3) RETURNING username,email",[username,email,hashedPassword])
       .catch((err) => {
