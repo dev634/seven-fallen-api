@@ -92,22 +92,22 @@ app.route("/user/subscribe").post(async (req, res) => {
         if(err){
           res.json(err.message)
         }
-        const newUser = await pool.query(
-            "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
-            [username,email]
-        ).catch((err) => {
-            if(err){
-              err.statusCode = 422;
-              err.message = 'Bad request this user already exist try an other email or username ...';
-              throw err;
-            }
-      });
-      res.status(201).json({
-        status: res.statusCode,
-        message : `${newUser.rows[0].username} a bien etait créé.`
-      })
     });
-    
+    console.log(form)
+    const newUser = await pool.query(
+      "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
+      [username,email]
+    ).catch((err) => {
+        if(err){
+          err.statusCode = 422;
+          err.message = 'Bad request this user already exist try an other email or username ...';
+          throw err;
+        }
+    });
+    res.status(201).json({
+      status: res.statusCode,
+      message : `${newUser.rows[0].username} a bien etait créé.`
+    })
 
   } catch (err) {
       res.json({
