@@ -16,7 +16,7 @@ const port = 3000;
 const saltRounds = 10;
 
 //* App settings
-let urlBodyParser = bodyParser.urlencoded({ extended: true }));
+let urlBodyParser = bodyParser.urlencoded({ extended: true });
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -81,7 +81,7 @@ app.route('/user/find/:id').get(async (req,res)=>{
 });
 
 //Insert a user
-app.route("/user/subscribe").urlBodyParser().post(async (req, res) => {
+app.post("/user/subscribe",urlBodyParser,async (req, res) => {
   //try {
     //const {username,email,password} = req.body;
     console.log(req.body)
