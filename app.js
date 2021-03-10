@@ -92,7 +92,7 @@ app.route("/user/subscribe").post(async (req, res) => {
         if(err){
           res.json(err.message)
         }
-        return JSON.stringify(fields)
+        return res.json(fields)
       });
     console.log(formResult)
     const newUser = await pool.query(
