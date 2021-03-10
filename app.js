@@ -9,8 +9,8 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
-const { urlencoded } = require("express");
-
+const formidable = require('formidable');
+const form = formidable({ multiples: true });
 
 //* Variables
 const app = express();
@@ -86,8 +86,11 @@ app.route('/user/find/:id').get(async (req,res)=>{
 app.route("/user/subscribe").post(async (req, res) => {
   //try {
     //const {username,email,password} = req.body;
-    console.log(req.body)
-    res.json(req.body)
+    form.parse(req, (err, fields, files) => {
+      console.log(fields)
+      res.json(fields)
+    });
+
     /*const hashedPassword = await bcrypt.hash(password,saltRounds); 
     const newUser = await pool.query("INSERT INTO Users(firstname,lastname,username,email,password) VALUES($1,$2,$3) RETURNING username,email",[username,email,hashedPassword])
       .catch((err) => {
