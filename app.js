@@ -86,7 +86,7 @@ app.route('/user/find/:id').get(async (req,res)=>{
 app.route("/user/subscribe").post(async (req, res) => {
   try {
     const form = formidable({ multiples: true });
-    const hashedPassword = await bcrypt.hash(password,saltRounds);
+    //const hashedPassword = await bcrypt.hash(password,saltRounds);
     form.parse(req, (err, fields, files) => {
       if(err){
         res.json(err.message)
