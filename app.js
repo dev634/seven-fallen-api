@@ -100,7 +100,10 @@ app.route("/user/subscribe").post(async (req, res) => {
               err.statusCode = 422,
               err.message = 'Bad request this user already exist try an other email or username ...';
             }
-            res.status(err.statusCode).json(err.message);
+            res.status(err.statusCode).json({
+              status: err.statusCode,
+              message: err.message
+            });
         });
         res.status(201).json({
           status: res.statusCode,
