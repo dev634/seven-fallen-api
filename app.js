@@ -85,36 +85,35 @@ app.route('/user/find/:id').get(async (req,res)=>{
 //Insert a user
 app.route("/user/subscribe").post(async (req, res) => {
   try {
-    const form = formidable({ multiples: true });
+      const form = formidable({ multiples: true });
+      
+      //const hashedPassword = await bcrypt.hash(password,saltRounds);
+      form.parse(req, (err, fields, files) => {
+        if(err){
+          res.json(err.message)
+        }
+        console.log(fields);
+      });
     
-    //const hashedPassword = await bcrypt.hash(password,saltRounds);
-    let formFields = form.parse(req, (err, fields, files) => {
-      if(err){
-        res.json(err.message)
-      }
-      return fields;
-    });
-    console.log({...formFields.field})
-    const newUser = await pool.query(
-                        "INSERT INTO Users(firstname,lastname,username,email,password) VALUES($1,$2,$3) RETURNING username,email",
-                        [username,email,hashedPassword])
-                    .catch((err) => {
-                        if(err){
-                          err.statusCode = 422;
-                          err.message = 'Bad request this user already exist try an other email or username ...';
-                          throw err;
-                        }
-                    });
-    res.status(201).json({
-      status: res.statusCode,
-      message : `${newUser.rows[0].username} a bien etait créé.`
-    })
+      const newUser = await pool.query(
+                          "INSERT INTO Users(firstname,lastname,username,email,password) VALUES($1,$2,$3) RETURNING username,email",
+                          [username,email,hashedPassword]
+                      ).catch((err) => {
+                          if(err){
+                            err.statusCode = 422;
+                            err.message = 'Bad request this user already exist try an other email or username ...';
+                            throw err;
+                          }
+                      });
+      res.status(201).json({
+        status: res.statusCode,
+        message : `${newUser.rows[0].username} a bien etait créé.`
+      })
   } catch (err) {
-
-    res.json({
-        status : err.statusCode,
-        message: err.message
-    })
+      res.json({
+          status : err.statusCode,
+          message: err.message
+      })
   }
 });
 
