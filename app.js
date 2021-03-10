@@ -30,8 +30,8 @@ app.use(passport.session());
 
 //*Strategies session settings
 app.use(cors());
-app.use(express.urlencoded({extended:true}))
-app.use(express.text())
+app.use(express.urlencoded({extended:false}))
+app.use(express.json())
 
 //! Requests session settings
 //* Route TEST
