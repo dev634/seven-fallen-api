@@ -92,9 +92,9 @@ app.route("/user/subscribe").post(async (req, res) => {
       if(err){
         res.json(err.message)
       }
-      return {fields};
+      return fields;
     });
-    console.log(formFields.IncomingForm)
+    console.log(formFields)
     const newUser = await pool.query(
                         "INSERT INTO Users(firstname,lastname,username,email,password) VALUES($1,$2,$3) RETURNING username,email",
                         [username,email,hashedPassword])
