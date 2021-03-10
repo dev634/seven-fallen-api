@@ -9,12 +9,12 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
+const { urlencoded } = require("express");
 
 
 //* Variables
 const app = express();
 const port = 3000;
-const saltRounds = 10;
 
 //* App settings
 
@@ -30,7 +30,8 @@ app.use(passport.session());
 
 //*Strategies session settings
 app.use(cors());
-//app.use(express.json());
+app.use(express.urlencoded({extended:true}))
+
 
 //! Requests session settings
 //* Route TEST
