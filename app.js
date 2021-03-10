@@ -85,7 +85,7 @@ app.route('/user/find/:id').get(async (req,res)=>{
 //Insert a user
 app.route("/user/subscribe").post(async (req, res) => {
   //try {
-    //const {username,email,password} = req.body;
+
     form.parse(req, (err, fields, files) => {
       console.log(fields)
       res.json(fields)
