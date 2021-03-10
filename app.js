@@ -92,9 +92,9 @@ app.route("/user/subscribe").post(async (req, res) => {
         if(err){
           res.json(err.message)
         }
-        return res.json(fields)
+        console.log(fields)
       });
-    console.log(formResult)
+
     const newUser = await pool.query(
       "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
       [username,email]
