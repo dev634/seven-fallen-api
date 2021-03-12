@@ -19,7 +19,12 @@ const app = express();
 const port = 3000;
 
 //* App settings
+app.use(cors());
+app.use(express.urlencoded({extended:false}))
+app.use(express.json())
 
+
+//*Strategies session settings
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -29,11 +34,6 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-
-//*Strategies session settings
-app.use(cors());
-app.use(express.urlencoded({extended:false}))
-app.use(express.json())
 
 //Rutes use
 app.use('/api',routeUsers);
