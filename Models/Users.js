@@ -1,7 +1,7 @@
 const pool = require('../db');
 
-function getAllUsers(){
+const getAllUsers = () => {
     return pool.query("SELECT username,email FROM users");
 }
 
-exports.getAllUsers = getAllUsers();
+export {getAllUsers};
