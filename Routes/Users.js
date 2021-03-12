@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAllUsers } = require('../Models/Users');
+import getAllUsers from '../Models/Users'
 
 
 //Get all users
