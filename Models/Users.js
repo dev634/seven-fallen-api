@@ -1,8 +1,13 @@
+const { response } = require('express');
 const pool = require('../db');
 
-const getAllUsers = () => {
-    const users = pool.query('SELECT username,email FROM users');
-    return users;
+const getAllUsers = (req,res) => {
+    pool.query('SELECT username,email FROM users', (err,results) => {
+        if(err){
+            throw err
+        }
+        res.status(200).json(results.rows);
+    });
 }
 
 
