@@ -8,5 +8,5 @@ const getAllUsers = () => {
 
 
 module.exports = {
-    getAllusers
+    getAllUsers
 };
