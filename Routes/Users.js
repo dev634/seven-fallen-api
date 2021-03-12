@@ -7,7 +7,7 @@ const getAllUsers = require('../Models/Users');
 
 router.get('/users', async (req,res) => {
     try{
-        const getUsers = getAllUsers;
+        const getUsers = await getAllUsers();
         if(getUsers.rowCount === 0){
           res.status(404).json({
             status : res.statusCode,
