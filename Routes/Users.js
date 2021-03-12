@@ -7,8 +7,7 @@ const Users = require('../Models/Users');
 
 router.get('/users', (req,res) => {
     try{
-        const users = new Users();
-        users.getAllUsers();
+        
         // if(getUsers.rowCount === 0){
         //   res.status(404).json({
         //     status : res.statusCode,
@@ -16,7 +15,7 @@ router.get('/users', (req,res) => {
         //   });
         // }
         // res.json(getUsers.rows);
-        console.log(users.data);
+        console.log(Users.getAllusers);
     }catch(err){
         res.status(404).json({
             status : res.statusCode,

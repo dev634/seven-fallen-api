@@ -1,11 +1,12 @@
 const pool = require('../db');
 
-const Users = function () {
-    this.data = null;
-} 
-
-Users.prototype.getAllUsers = function() {
-    this.data = pool.query('SELECT username,email FROM users');
+const getAllUsers = () => {
+    const users = pool.query('SELECT username,email FROM users');
+    return users;
 }
 
-module.exports = Users;
+
+
+module.exports = {
+    getAllusers
+};
