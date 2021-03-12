@@ -1,6 +1,5 @@
 //* Dependencies
 require("dotenv").config();
-
 const express = require("express");
 const cors = require("cors");
 const pool = require("./db");
@@ -10,6 +9,9 @@ const bcrypt = require("bcrypt");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
 const formidable = require("formidable");
+
+// routes reqçuired 
+const routeUsers = require('./Routes/Users');
 
 
 //* Variables
@@ -33,31 +35,8 @@ app.use(cors());
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 
-//! Requests session settings
-//* Route TEST
-app.route("/api/:id").get((req, res) => {
-  const param = req.params;
-  res.json(param);
-});
-
-//Get all users
-app.route("/users").get(async (req,res) => {
-    try{
-        const getUsers = await pool.query("SELECT username,email FROM users");
-        if(getUsers.rowCount === 0){
-          res.status(404).json({
-            status : res.statusCode,
-            message : "'Resources not found...'"
-          });
-        }
-        res.json(getUsers.rows);
-    }catch(err){
-        res.status(404).json({
-            status : res.statusCode,
-            message: err.message,
-        })
-    }
-})
+//Rutes use
+app.use('/api',routeUsers);
 
 //Get a user
 app.route('/user/find/:id').get(async (req,res)=>{
