@@ -36,7 +36,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Rutes use
-app.use('/',routeUsers);
+app.use('/api',routeUsers);
 
 //Get a user
 app.route('/user/find/:id').get(async (req,res)=>{
