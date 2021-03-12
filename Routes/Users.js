@@ -15,7 +15,7 @@ router.get('/users', (req,res) => {
         //   });
         // }
         // res.json(getUsers.rows);
-        console.log(Users.getAllusers);
+        console.log(Users.getAllUsers);
     }catch(err){
         res.status(404).json({
             status : res.statusCode,
