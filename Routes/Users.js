@@ -5,7 +5,7 @@ const Users = require('../Models/Users');
 
 //Get all users
 
-router.get('/users',(req,res) => {
+router.get('/users', (req,res) => {
     try{
         const users = new Users();
         users.getAllUsers();
