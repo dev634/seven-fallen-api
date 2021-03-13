@@ -25,12 +25,13 @@ const getUser = (req, res) => {
 
 const createUser = (req, res) => {
     try {
-        console.log(req)
+        
         const form = formidable({ multiples: true });
         form.parse(req, (err, fields, files) => {
           if(err){
             res.json(err.message)
           }
+          console.log(fields)
           pool.query(
             "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
             [fields.username,fields.email],
