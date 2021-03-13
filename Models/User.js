@@ -14,7 +14,7 @@ const getUser = (req, res) => {
                   throw new Error('User not found...');
               }
           }catch(err){
-              res.status(404).json({
+              res.status(err.code).json({
                 code : res.statusCode,
                 message: err.message
               });
