@@ -24,37 +24,42 @@ const getUser = (req, res) => {
 }
 
 const createUser = (req, res) => {
-    try {
-        
         const form = formidable({ multiples: true });
         form.parse(req, (err, fields, files) => {
-          if(err){
-            res.json(err.message)
-          }
-          console.log(fields)
-          pool.query(
-            "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
-            [fields.username,fields.email],
-            (err, result) => {
-                if(err){
-                    err.code = 422,
-                    err.message = 'Bad request ...'
-                }else{
-                    res.status(201).json({
-                        status: res.statusCode,
-                        message : `${result.rows[0].username} a bien etait créé.`
-                    })
-                }
+          try {
+            if(err){
+                err.code= 500;
+                err.message= "Server error";
+                throw err;
             }
-          )
+
+            if(fields.username !== null && fields.email !== null){
+                pool.query(
+                    "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
+                    [fields.username,fields.email],
+                    (err, result) => {
+                        if(err){
+                            err.code = 422;
+                            err.message = 'Bad request ...';
+                            throw err;
+                        }else{
+                            res.status(201).json({
+                                code: res.statusCode,
+                                message : `${result.rows[0].username} a bien etait créé.`
+                            })
+                        }
+                    }
+                )
+            }
+          }catch(err){
+            res.status(err.code).json({
+                code: err.code,
+                message: err.message
+            })
+          }
+
         });
-    } catch (err) {
-        res.status(err.code).json({
-            code : err.code,
-            message: err.message
-        })
-    }
-}
+    } 
 
 module.exports = {
     getUser,
