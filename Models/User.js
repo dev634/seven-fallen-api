@@ -7,8 +7,10 @@ const getUser = (req, res) => {
         try{
             if(err){
                 throw new Error('User not found...');
-            }else{
-                res.json(result.rows[0])
+            }
+
+            if(result.rowCount === 0){
+                throw new Error('User not found...');
             }
         }catch(err){
             res.status(404).json({
