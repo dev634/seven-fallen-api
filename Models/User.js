@@ -6,12 +6,15 @@ const getUser = (req, res) => {
           try{
               if(err){
                   err.code = 422;
-                  err.message = "unable to procees this request"
+                  err.message = "unable to process this request"
                   throw err;
               }
   
               if(result.rowCount === 0){
-                  throw new Error('User not found...');
+                  throw new Error({
+                      code: 404,
+                      message: "user not found ..."
+                  })
               }
           }catch(err){
               res.status(err.code).json({
