@@ -11,10 +11,7 @@ const getUser = (req, res) => {
               }
   
               if(result.rowCount === 0){
-                  throw new Error({
-                      code: 404,
-                      message: "user not found ..."
-                  })
+                  throw {code: 404, message: 'not found ..'}
               }
           }catch(err){
               res.status(err.code).json({
