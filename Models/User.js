@@ -5,10 +5,10 @@ const getUser = async(req, res) => {
       const id = req.params.id;
       const getUser = await pool.query('SELECT username, email FROM users WHERE id = $1',[id]).catch((err)=> {
         if(err){
-          err.code = err.statusCode;
+          err.code = res.statusCode;
           err.message = 'User not found ...';
-          throw err;
         }
+        throw err;
       });
       if(getUser.rowCount === 0){
         throw new Error('This user doesn\'t exist');
