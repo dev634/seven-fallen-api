@@ -39,9 +39,6 @@ app.use(passport.session());
 app.use('/api',routeUsers);
 app.use('/api',routeUser);
 
-
-//Get a user
-
 //Insert a user
 app.route("/user/subscribe").post(async (req, res) => {
   try {

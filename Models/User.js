@@ -5,6 +5,7 @@ const getUser = async(req, res) => {
       const id = req.params.id;
       const getUser = await pool.query('SELECT username, email FROM users WHERE id = $1',[id]).catch((err)=> {
         if(err){
+          err.code = err.statusCode;
           err.message = 'User not found ...';
           throw err;
         }
