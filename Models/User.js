@@ -12,7 +12,7 @@ const getUser = (req, res) => {
             }
         }catch(err){
             res.status(404).json({
-              status : err.statusCode,
+              code : res.statusCode,
               message: err.message
             });
           }
