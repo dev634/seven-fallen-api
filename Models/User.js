@@ -8,9 +8,9 @@ const getUser = (req, res) => {
                 res.status(404).json(
                     err.message = "User not found ..."
                 )
+            }else{
+                res.json(result.rows[0])
             }
-
-            res.json(result.rows[0])
       });
     }catch(err){
       res.status(404).json({
