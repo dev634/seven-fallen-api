@@ -25,6 +25,7 @@ const getUser = (req, res) => {
 
 const createUser = (req, res) => {
     try {
+        console.log(req)
         const form = formidable({ multiples: true });
         form.parse(req, (err, fields, files) => {
           if(err){
