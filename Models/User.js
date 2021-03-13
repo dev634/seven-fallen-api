@@ -5,9 +5,7 @@ const getUser = (req, res) => {
       const id = req.params.id;
       pool.query('SELECT username, email FROM users WHERE id = $1',[id], (err,result) => {
             if(err){
-                res.status(404).json(
-                    err.message = "User not found ..."
-                )
+                throw new Error('User not found...');
             }else{
                 res.json(result.rows[0])
             }
