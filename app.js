@@ -8,7 +8,7 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
-const formidable = require("formidable");
+
 
 // routes requirements 
 const routeUsers = require('./Routes/Users');
@@ -38,42 +38,6 @@ app.use(passport.session());
 //Routes middleware
 app.use('/api',routeUsers);
 app.use('/api',routeUser);
-
-//Insert a user
-app.route("/user/subscribe").post(async (req, res) => {
-  try {
-      const form = formidable({ multiples: true });
-      
-      //const hashedPassword = await bcrypt.hash(password,saltRounds);
-      form.parse(req, async (err, fields, files) => {
-        if(err){
-          res.json(err.message)
-        }
-        const newUser = await pool.query(
-          "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
-          [fields.username,fields.email]
-        ).catch((err) => {
-            if(err){
-              err.statusCode = 422,
-              err.message = 'Bad request this user already exist try an other email or username ...';
-            }
-            res.status(err.statusCode).json({
-              status: err.statusCode,
-              message: err.message
-            });
-        });
-        res.status(201).json({
-          status: res.statusCode,
-          message : `${newUser.rows[0].username} a bien etait créé.`
-        })
-      });
-  } catch (err) {
-      res.json({
-          status : err.statusCode,
-          message: err.message
-      })
-  }
-});
 
 /* Update a user */
 app.route('/user/update/:id').patch(async (req, res) => {
