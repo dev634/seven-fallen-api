@@ -10,9 +10,9 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
 const formidable = require("formidable");
 
-// routes reqçuired 
+// routes requirements 
 const routeUsers = require('./Routes/Users');
-
+const routeUser = require('./Routes/User');
 
 //* Variables
 const app = express();
@@ -35,31 +35,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Rutes use
+//Routes middleware
 app.use('/api',routeUsers);
+app.use('/api',routeUser);
+
 
 //Get a user
-app.route('/user/find/:id').get(async (req,res)=>{
-  try{
-    const id = req.params.id;
-    const getUser = await pool.query('SELECT username, email FROM users WHERE id = $1',[id]).catch((err)=> {
-      if(err){
-        err.statusCode = 404,
-        err.message = 'User not found ...'
-      }
-      throw err;
-    });
-    if(getUser.rowCount === 0){
-      throw new Error('This user doesn\'t exist');
-    }
-    res.json(getUser.rows);
-  }catch(err){
-    res.status(404).json({
-      status : err.statusCode,
-      message: err.message
-    });
-  }
-});
 
 //Insert a user
 app.route("/user/subscribe").post(async (req, res) => {
