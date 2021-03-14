@@ -71,6 +71,7 @@ const updateUser = (req, res) => {
         (err,result) => {
             try {
                 if(err){
+                    console.log(err)
                     err.code = 404;
                     err.message = "User not found";
                     throw err;
