@@ -26,7 +26,6 @@ const getUser = (req, res) => {
 const createUser = (req, res) => {
         const form = formidable({ multiples: true });
         form.parse(req, (err, fields, files) => {
-
             if(fields.username !== null && fields.email !== null){
                 pool.query(
                     "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
@@ -53,10 +52,44 @@ const createUser = (req, res) => {
                     }
                 )
             }
-        });
-    } 
+    });
+};
+
+const updateUser = (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+    const dataTab = [];
+    for(property in body){
+      dataTab.push(`${property} = \'${body[property]}\'`);
+    }
+    const settingString = dataTab.join();
+    pool.query(
+        `UPDATE users SET ${settingString} WHERE id = $1 RETURNING username`,
+        [id],
+        (err,result) => {
+            try {
+                if(err){
+                    err.code = 404;
+                    err.message = "User not found";
+                    throw err;
+                }else{
+                    res.status(204).json({
+                        code: res.statusCode,
+                        message: `${result.username} succesfully updated`
+                    });
+                }
+            }catch(err){
+                res.status(err.code).json({
+                    code: res.statusCode,
+                    message: err.message
+                })
+            }
+        }
+    )
+}
 
 module.exports = {
     getUser,
-    createUser
+    createUser,
+    updateUser
 }
