@@ -95,32 +95,10 @@ const updateUser = (req, res) => {
     )
 }
 
-const deleteUser = (req,res) => {
+const deleteUser = async (req,res) => {
       const id = req.params.id;
-      const exist = pool.query(
-                        'SELECT username FROM users WHERE id = $1',
-                        [id],
-                        (err, result) => {
-                            try{
-                                if(err){
-                                    err.code = 422;
-                                    err.message = "unable to process this request";
-                                    throw err;
-                                }
-
-                                if(result.rowCount === 0){
-                                    throw {code: 404, message: "user not found ..."};
-                                }
-                                
-                            }catch(err){
-                                res.status(err.code).json({
-                                  code : res.statusCode,
-                                  message: err.message
-                                });
-                            }
-                        }    
-                    );
-     console.log(exist)
+      const exist = await pool.query('SELECT username FROM users WHERE id = $1',[id]);
+      console.log(exist)
 }
 
 module.exports = {
