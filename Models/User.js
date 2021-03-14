@@ -113,7 +113,7 @@ const deleteUser = (req,res) => {
                                 }
                                 
                                 if(result.rowCount !== 0){
-                                    return;
+                                    return result;
                                 }
                             }catch(err){
                                 res.status(err.code).json({
@@ -123,6 +123,7 @@ const deleteUser = (req,res) => {
                             }
                         }    
                     );
+    res.json(exist)
 }
 
 module.exports = {
