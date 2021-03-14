@@ -65,7 +65,12 @@ const updateUser = (req, res) => {
     }
     const settingString = dataTab.join();
     pool.query(
-        `WITH updated AS (UPDATE users SET ${settingString} WHERE id = $1 RETURNING ${settingString}) 
+        `WITH updated AS (
+            UPDATE users 
+            SET ${settingString} 
+            WHERE id = $1 
+            RETURNING ${settingString}
+            ) 
         SELECT updated.* FROM updated`,
         [id],
         (err,result) => {
@@ -78,7 +83,7 @@ const updateUser = (req, res) => {
                     
                     res.status(204).json({
                         code: res.statusCode,
-                        message: `${result.rows} succesfully updated`
+                        message: `${settingString} succesfully updated`
                     });
                 }
             }catch(err){
