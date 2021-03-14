@@ -69,7 +69,7 @@ const updateUser = (req, res) => {
         (UPDATE users 
         SET ${settingString} 
         WHERE id = $1 
-        RETURNING ${settingString})
+        RETURNING *)
         SELECT updated.username 
         FROM updated`,
         [id],
