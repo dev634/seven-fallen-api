@@ -1,7 +1,7 @@
 const pool = require('../db');
 
 const getAllUsers = (req,res) => {
-    pool.query('SELECT username,email FROM users', (err,results) => {
+    pool.query('SELECT id,username,email FROM users', (err,results) => {
         if(err){
             err.message = "Not found";
             res.status(404).json(err.message);
