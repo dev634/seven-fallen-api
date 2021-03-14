@@ -98,7 +98,7 @@ const updateUser = (req, res) => {
 const deleteUser = (req,res) => {
       const id = req.params.id;
       const exist = pool.query(
-                        'SELECT username FROM users WHERE id = $1',
+                        'SELECT username FROM users WHERE id = $1 RETURN ING',
                         [id],
                         (err, result) => {
                             try{
@@ -113,7 +113,7 @@ const deleteUser = (req,res) => {
                                 }
                                 
                                 if(result.rowCount !== 0){
-                                    return result.rows[0];
+                                    return true;
                                 }
                             }catch(err){
                                 res.status(err.code).json({
