@@ -51,6 +51,7 @@ const createUser = (req, res) => {
                         }
                     }
                 )
+                
             }
     });
 };
@@ -64,7 +65,8 @@ const updateUser = (req, res) => {
     }
     const settingString = dataTab.join();
     pool.query(
-        `UPDATE users SET ${settingString} WHERE id = $1 RETURNING ${settingString}`,
+        `WITH updated AS (UPDATE users SET ${settingString} WHERE id = $1 RETURNING ${settingString}) 
+        SELECT updated.* FROM updated.users`,
         [id],
         (err,result) => {
             try {
