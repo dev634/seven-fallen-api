@@ -97,7 +97,7 @@ const updateUser = (req, res) => {
 
 const deleteUser = async (req,res) => {
       const id = req.params.id;
-      const exist = await pool.query('SELECT username FROM users WHERE id = $1',[id]);
+      const exist = await pool.query('SELECT username,email FROM users WHERE id = $1',[id]);
       console.log(exist)
 }
 
