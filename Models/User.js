@@ -75,8 +75,7 @@ const updateUser = (req, res) => {
         [id],
         (err,result) => {
             try {
-                if(err){
-                    console.log(JSON.stringify(err));  
+                if(err){ 
                     err.code = 404;
                     err.message = "User not found";
                     throw err;
