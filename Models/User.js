@@ -99,7 +99,7 @@ const deleteUser = async (req,res) => {
     try {
         const id = req.params.id;
 
-        if(typeof id === "string" || Number.isInteger(id) && id < 0){
+        if(typeof id === "string" ||  id < 0){
             throw {
                 code: 422,
                 message: "bad request"
@@ -107,6 +107,7 @@ const deleteUser = async (req,res) => {
         }
 
         const exist = await pool.query('SELECT username,email FROM users WHERE id = $1',[id]);
+        
         if(exist.rowCount === 0){
             throw {
                 code: 404,
