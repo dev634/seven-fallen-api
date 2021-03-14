@@ -19,7 +19,7 @@ const app = express();
 const port = 3000;
 
 //* App settings
-// app.use(cors());
+app.use(cors());
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 
