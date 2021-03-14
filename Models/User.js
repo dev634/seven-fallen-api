@@ -66,12 +66,11 @@ const updateUser = (req, res) => {
     const settingString = dataTab.join();
     pool.query(
         `WITH updated AS (UPDATE users SET ${settingString} WHERE id = $1 RETURNING ${settingString}) 
-        SELECT updated.* FROM updated.users`,
+        SELECT updated.* FROM updated`,
         [id],
         (err,result) => {
             try {
                 if(err){
-                    console.log(err)
                     err.code = 404;
                     err.message = "User not found";
                     throw err;
