@@ -70,8 +70,8 @@ const updateUser = (req, res) => {
         SET ${settingString} 
         WHERE id = $1 
         RETURNING ${settingString})
-        SELECT updated.* 
-        FROM updated.users`,
+        SELECT updated.username 
+        FROM updated`,
         [id],
         (err,result) => {
             try {
