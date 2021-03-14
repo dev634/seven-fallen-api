@@ -79,10 +79,11 @@ const updateUser = (req, res) => {
                     err.code = 404;
                     err.message = "User not found";
                     throw err;
-                }else{        
+                }else{
+                    console.log(JSON.stringify(result));        
                     res.status(200).json({
                         code: res.statusCode,
-                        message: `${result.rows}`
+                        message: `Succesfully updated ...`
                     });
                 }
             }catch(err){
