@@ -98,7 +98,7 @@ const updateUser = (req, res) => {
 const deleteUser = (req,res) => {
       const id = req.params.id;
       const exist = pool.query(
-                        'SELECT username FROM users WHERE id = $1 RETURN ING',
+                        'SELECT username FROM users WHERE id = $1 RETURNING *',
                         [id],
                         (err, result) => {
                             try{
@@ -112,9 +112,6 @@ const deleteUser = (req,res) => {
                                     throw {code: 404, message: "user not found ..."};
                                 }
                                 
-                                if(result.rowCount !== 0){
-                                    return true;
-                                }
                             }catch(err){
                                 res.status(err.code).json({
                                   code : res.statusCode,
@@ -123,7 +120,7 @@ const deleteUser = (req,res) => {
                             }
                         }    
                     );
-    res.json(exist)
+     console.log(exist)
 }
 
 module.exports = {
