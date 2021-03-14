@@ -64,7 +64,7 @@ const updateUser = (req, res) => {
     }
     const settingString = dataTab.join();
     pool.query(
-        `UPDATE users SET ${settingString} WHERE id = $1 RETURNING id,firstname,lastname,username,email`,
+        `UPDATE users SET ${settingString} WHERE id = $1 RETURNING ${settingString}`,
         [id],
         (err,result) => {
             try {
