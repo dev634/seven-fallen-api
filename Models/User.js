@@ -95,11 +95,9 @@ const updateUser = (req, res) => {
     )
 }
 
-const deleteUser = (err,req,res) => {
+const deleteUser = (req,res) => {
+    try{
       const id = req.params.id;
-      if(err){
-        console.log("hello")
-      }
       pool.query(
             "DELETE FROM users WHERE id = $1 RETURNING username,email", 
             [id],
@@ -122,6 +120,12 @@ const deleteUser = (err,req,res) => {
                     })
                 }
             });
+        }catch(err){
+            res.status(404).json({
+                code: res.statusCode,
+                message: "Not found"
+            })
+        }
 }
 
 module.exports = {
