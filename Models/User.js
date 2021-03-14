@@ -79,8 +79,7 @@ const updateUser = (req, res) => {
                     err.code = 404;
                     err.message = "User not found";
                     throw err;
-                }else{
-                    console.log(result)       
+                }else{      
                     res.status(200).json({
                         code: res.statusCode,
                         message: `${result.rows[0].username} succesfully updated ...`
@@ -96,8 +95,19 @@ const updateUser = (req, res) => {
     )
 }
 
+const deleteUser = async (req,res) => {
+      const {id} = req.body;
+      const deletedUser = await pool.query(
+                "DELETE FROM Users WHERE userid = $1 RETURNING username,usermail", 
+                [id],
+                (err,result) => {
+
+                });
+}
+
 module.exports = {
     getUser,
     createUser,
-    updateUser
+    updateUser,
+    deleteUser
 }

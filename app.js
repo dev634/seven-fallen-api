@@ -19,7 +19,7 @@ const app = express();
 const port = 3000;
 
 //* App settings
-app.use(cors());
+// app.use(cors());
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 
@@ -38,19 +38,6 @@ app.use(passport.session());
 //Routes middleware
 app.use('/api',routeUsers);
 app.use('/api',routeUser);
-
-//Delete a user
-app.route("/user").delete(async (req,res) => {
-  try{
-    const {id} = req.body;
-    const deletedUser = await pool.query("DELETE FROM Users WHERE userid = $1 RETURNING usermail", [id] );
-    res.json(deletedUser.rows);
-  }catch(err){
-    res.json({
-      message : err.message
-    });
-  }
-})
 
 //! Server Settings
 app.listen(port, () => {
