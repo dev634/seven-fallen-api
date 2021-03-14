@@ -97,7 +97,7 @@ const updateUser = (req, res) => {
 
 const deleteUser = async (req,res) => {
       const {id} = req.body;
-      const deletedUser = await pool.query(
+      pool.query(
                 "DELETE FROM Users WHERE userid = $1 RETURNING username,usermail", 
                 [id],
                 (err,result) => {
