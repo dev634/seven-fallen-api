@@ -99,13 +99,6 @@ const deleteUser = async (req,res) => {
     try {
         const id = req.params.id;
 
-        if(id < 0){
-            throw {
-                code: 422,
-                message: "bad request"
-            }
-        }
-
         if(typeof id === "string"){
             throw {
                 code: 422,
