@@ -75,10 +75,10 @@ const updateUser = (req, res) => {
                     err.message = "User not found";
                     throw err;
                 }else{
-                    console.log(result.rows);
+                    
                     res.status(204).json({
                         code: res.statusCode,
-                        message: `${result.username} succesfully updated`
+                        message: `${result.rows} succesfully updated`
                     });
                 }
             }catch(err){
