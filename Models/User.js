@@ -113,7 +113,7 @@ const deleteUser = (req,res) => {
                                 }
                                 
                                 if(result.rowCount !== 0){
-                                    return result;
+                                    return result.rows[0];
                                 }
                             }catch(err){
                                 res.status(err.code).json({
