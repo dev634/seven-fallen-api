@@ -98,8 +98,8 @@ const updateUser = (req, res) => {
 const deleteUser = async (req,res) => {
     try {
         const id = req.params.id;
-        
-        if(Number.isInteger(id) && id < 0){
+
+        if(id < 0){
             throw {
                 code: 422,
                 message: "bad request"
