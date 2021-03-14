@@ -97,28 +97,28 @@ const updateUser = (req, res) => {
 
 const deleteUser = (req,res) => {
       const id = req.params.id;
-      pool.query(
-            "DELETE FROM users WHERE id = $1 AND EXISTS (SELECT id FROM users WHERE id = $1)", 
-            [id],
-            (err,result) => {
-                try{
-                    if(err){
-                        err.code = 404;
-                        err.messge = "User not found ...";
-                        throw err;
-                    }else{
-                        res.status(200).json({
-                            code: res.statusCode,
-                            message: `${result.rows[0].username} succesfully deleted ...`
-                        });
-                    }
-                }catch(err){
-                    res.status(err.code).json({
-                        code: res.statusCode,
-                        message: err.message
-                    })
-                }
-            });
+      const exist = pool.query(
+                        'SELECT username FROM users WHERE id = $1',
+                        [id],
+                        (err, result) => {
+                            try{
+                                if(err){
+                                    err.code = 422;
+                                    err.message = "unable to process this request";
+                                    throw err;
+                                }
+                                if(result.rowCount === 0){
+                                    throw {code: 404, message: "user not found ..."};
+                                }
+                                res.status(200).json(result.rows[0]);
+                            }catch(err){
+                                res.status(err.code).json({
+                                  code : res.statusCode,
+                                  message: err.message
+                                });
+                            }
+                        }    
+                    );
 }
 
 module.exports = {
