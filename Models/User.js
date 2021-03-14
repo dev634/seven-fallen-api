@@ -82,7 +82,7 @@ const updateUser = (req, res) => {
                 }else{        
                     res.status(200).json({
                         code: res.statusCode,
-                        message: `${result}`
+                        message: `${result.rows}`
                     });
                 }
             }catch(err){
