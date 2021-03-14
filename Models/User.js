@@ -101,7 +101,22 @@ const deleteUser = async (req,res) => {
                 "DELETE FROM Users WHERE userid = $1 RETURNING username,usermail", 
                 [id],
                 (err,result) => {
-
+                    try{
+                        if(err){
+                            err.code = 404;
+                            err.messge = "User not found ..."
+                        }else{
+                            res.status(200).json({
+                                code: res.statusCode,
+                                message: `${result.rows[0].username} succesfully deleted ...`
+                            });
+                        }
+                    }catch(err){
+                        res.status(err.code).json({
+                            code: res.statusCode,
+                            message: err.message
+                        })
+                    }
                 });
 }
 
