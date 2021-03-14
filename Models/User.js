@@ -70,7 +70,7 @@ const updateUser = (req, res) => {
         SET ${settingString} 
         WHERE id = $1 
         RETURNING *)
-        SELECT updated.username 
+        SELECT updated.* 
         FROM updated`,
         [id],
         (err,result) => {
@@ -83,7 +83,7 @@ const updateUser = (req, res) => {
                     console.log(result)       
                     res.status(200).json({
                         code: res.statusCode,
-                        message: `Succesfully updated ...`
+                        message: `${result.rows[0].username} succesfully updated ...`
                     });
                 }
             }catch(err){
