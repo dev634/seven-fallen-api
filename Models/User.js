@@ -39,7 +39,7 @@ const createUser = (req, res) => {
                             console.log(result)
                             res.status(200).json({
                                 code: res.statusCode,
-                                message: `${result.username} successfully added ...`
+                                message: `${result.rows[0].username} successfully added ...`
                             })
                         }catch(err){
                             res.status(err.code).json({
