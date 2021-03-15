@@ -29,7 +29,7 @@ const createUser = (req, res) => {
             if(fields.username !== null && fields.email !== null){
                 console.log(fields)
                 pool.query(
-                    "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
+                    "INSERT INTO users(username,email) VALUES($1,$2) RETURNING username,email",
                     [fields.username,fields.email],
                     (err, result) => {
                         try{
