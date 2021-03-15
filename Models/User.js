@@ -111,6 +111,7 @@ const deleteUser = async (req,res) => {
         
         if(exist.rowCount === 1){
             deleted = await pool.query('DELETE FROM users WHERE id = $1 RETURNING username', [id]);
+            console.log(deleted.rows)
         }
 
         res.status(200).json({
