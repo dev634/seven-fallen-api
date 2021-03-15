@@ -34,7 +34,7 @@ const createUser = (req, res) => {
                         try{
                             if(err){
                                 console.log(err.message)
-                                err.code = 422;
+                                err.code = 400;
                                 err.message = "Bad request ...";
                                 throw err;
                             }else{
@@ -116,6 +116,7 @@ const deleteUser = async (req,res) => {
                 code: res.statusCode,
                 message: `${deleted.rows[0].username} succesfully deleted ...`
             })
+
         }else{
             throw {
                 code: 400,
