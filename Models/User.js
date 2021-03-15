@@ -102,7 +102,7 @@ const deleteUser = async (req,res) => {
         const id = req.params.id;
         let exist = null;
         
-        if(!regex.test(id - 0) && !id - 0 > 0){
+        if(!regex.test(id - 0) || !id - 0 > 0){
             throw {
                 code: 400,
                 message: "Bad request ..."
