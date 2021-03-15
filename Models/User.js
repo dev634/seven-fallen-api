@@ -25,36 +25,9 @@ const getUser = (req, res) => {
 
 const createUser = (req, res) => {
         const form = formidable({ multiples: true });
-        form.parse(req, (err, fields, files) => {
-            if(fields.username !== null && fields.email !== null){
-                pool.query(
-                    "INSERT INTO users(username,email) VALUES($1,$2) RETURNING username,email",
-                    [fields.username,fields.email],
-                    (err, result) => {
-                        try{
-                            if(err){
-                                console.log(err.message)
-                                err.code = 400;
-                                err.message = "Bad request ...";
-                                throw err;
-                            }else{
-                                res.status(201).json({
-                                    code: res.statusCode,
-                                    message : `${result.rows[0].username} a bien etait créé.`
-                                })
-                            }
-
-                        }catch(err){
-                            res.status(err.code).json({
-                                code: res.statusCode,
-                                message: err.message
-                            });
-                        }
-                    }
-                )
-                
-            }
-    });
+        const userCreated = null;
+        const formParsed = await form.parse(res);
+        console.log(formParsed);
 };
 
 const updateUser = (req, res) => {
