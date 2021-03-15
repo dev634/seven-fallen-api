@@ -23,11 +23,15 @@ const getUser = (req, res) => {
     });
 }
 
-const createUser = async (req, res) => {
+const createUser = (req, res) => {
         const form = formidable({ multiples: true });
         const userCreated = null;
-        const formParsed = await form.parse(req);
-        console.log(formParsed.fields);
+        form.parse(req, async (err, fields, files) => {
+            if(fields.username !== null && fields.email !== null){
+                 userCreated = await pool.query("INSERT INTO users(username,email) VALUES($1,$2) RETURNING username,email",[fields.username,fields.email]);    
+            }
+        });
+        console.log(userCreated)
 };
 
 const updateUser = (req, res) => {
