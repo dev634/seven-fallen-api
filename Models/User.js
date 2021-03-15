@@ -109,8 +109,8 @@ const deleteUser = async (req,res) => {
             }
         }
         
-        deleted = await pool.query('DELETE FROM users WHERE id = $1 RETURNING username', [id]);
-        console.log(deleted.rows)
+        // deleted = await pool.query('DELETE FROM users WHERE id = $1 RETURNING username', [id]);
+        console.log(exist)
 
         res.status(200).json({
             code: res.statusCode,
