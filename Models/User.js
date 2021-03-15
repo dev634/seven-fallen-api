@@ -23,7 +23,7 @@ const getUser = (req, res) => {
     });
 }
 
-const createUser = (req, res) => {
+const createUser = async (req, res) => {
         const form = formidable({ multiples: true });
         const userCreated = null;
         const formParsed = await form.parse(res);
