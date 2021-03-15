@@ -102,7 +102,9 @@ const deleteUser = async (req,res) => {
         const exist = await pool.query('SELECT username,email FROM users WHERE id = $1',[id]);
         const deleted = null;
 
-        console.log(exist.rowCount)
+        if(exist.rowCount == 1){
+            console.log(exist.rows);
+        }
 
         throw {
             code: 404,
