@@ -98,12 +98,12 @@ const updateUser = (req, res) => {
 
 const deleteUser = async (req,res) => {
     try {
-        const regex = /^[1-9]+$/g;
+        const regex = /^[0-9]+$/g;
         console.log(regex.test(req.params.id - 0));
         const id = req.params.id;
         let exist = null;
         
-        if(regex.test(req.params.id - 0)){
+        if(regex.test(id - 0) && id - 0 > 0){
             exist = await pool.query('SELECT username,email FROM users WHERE id = $1',[id]);
             console.log(exist.rows)
         }else{
