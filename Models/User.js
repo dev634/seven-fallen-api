@@ -41,7 +41,10 @@ const createUser = (req, res) => {
                                 message: `${result.username} successfully added ...`
                             })
                         }catch(err){
-
+                            res.status(err.code).json({
+                                code: res.statusCode,
+                                message: err.message
+                            })
                         }
                     });  
                 }
