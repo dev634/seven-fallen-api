@@ -103,7 +103,7 @@ const deleteUser = async (req,res) => {
         const id = req.params.id;
         let exist = null;
         
-        if(id){
+        if(regex.test(req.params.id - 0)){
             exist = await pool.query('SELECT username,email FROM users WHERE id = $1',[id]);
             console.log(exist.rows)
         }else{
