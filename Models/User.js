@@ -27,13 +27,13 @@ const createUser = (req, res) => {
         const form = formidable({ multiples: true });
         form.parse(req, (err, fields, files) => {
             if(fields.username !== null && fields.email !== null){
-                console.log(fields)
                 pool.query(
                     "INSERT INTO users(username,email) VALUES($1,$2) RETURNING username,email",
                     [fields.username,fields.email],
                     (err, result) => {
                         try{
                             if(err){
+                                console.log(err.message)
                                 err.code = 422;
                                 err.message = "Bad request ...";
                                 throw err;
