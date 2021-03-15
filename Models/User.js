@@ -100,7 +100,7 @@ const deleteUser = async (req,res) => {
     try {
         const id = req.params.id;
         const regex = /[1-9].*/g;
-        console.log(id.match(regex));
+        console.log(regex.test(id));
         let exist = null;
         
         if(Number.isInteger(req.params.id - 0) && req.params.id - 0 > 0){
