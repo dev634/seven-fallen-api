@@ -32,8 +32,8 @@ const createUser = (req, res) => {
                     [fields.username,fields.email],
                     (err, result) => {
                         if(err){
-                            err.message = err.detail,
-                            err.code = 422
+                            err.message = err.detail;
+                            err.code = 422;
                             throw err;
                         }
                         res.status(200).json({
