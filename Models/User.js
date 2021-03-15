@@ -102,20 +102,15 @@ const deleteUser = async (req,res) => {
         const exist = await pool.query('SELECT username,email FROM users WHERE id = $1',[id]);
         const deleted = null;
 
-        if(exist.rowCount === 0){
-            throw {
-                code: 404,
-                message: "user not found"
-            }
-        }else{
-            deleted = await pool.query('DELETE FROM users WHERE id = $1 RETURNING username', [id]);
-            console.log(exist.rowCount)
-    
-            res.status(200).json({
-                code: res.statusCode,
-                message: `${deleted.rows[0].username} has been deleted succesfully`
-            })
+        if(exist.rowCount === 1){
+            deleted = await pool.query('DELETE FROM users WHERE id = $1',[id]);
         }
+
+        throw {
+            code: 404,
+            message: "user not found"
+        }
+        
     }catch(err){
         res.status(err.code).json({
             code: res.statusCode,
