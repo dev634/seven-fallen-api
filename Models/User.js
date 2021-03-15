@@ -29,10 +29,13 @@ const createUser = (req, res) => {
         let userCreated = null;
         form.parse(req, async (err, fields, files) => {
             if(fields.username !== null && fields.email !== null){
-               userCreated =  await pool.query("INSERT INTO users(username,email) VALUES($1,$2) RETURNING username,email",[fields.username,fields.email]); 
-               let data = await userCreated((err, req) => {
-                    console.log(err)
-               }) 
+               pool.query("INSERT INTO users(username,email) VALUES($1,$2) RETURNING username,email",
+                        [fields.username,fields.email],
+                        (err, result) => {
+                            if(err){
+                                console.log(err.detail)
+                            }
+                        });  
             }
         });
     }catch(err){
