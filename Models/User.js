@@ -24,14 +24,24 @@ const getUser = (req, res) => {
 }
 
 const createUser = (req, res) => {
+    try{
         const form = formidable({ multiples: true });
         let userCreated = null;
         form.parse(req, async (err, fields, files) => {
             if(fields.username !== null && fields.email !== null){
                  userCreated = await pool.query("INSERT INTO users(username,email) VALUES($1,$2) RETURNING username,email",[fields.username,fields.email]);    
             }
+            if(userCreated.error){
+                throw {code: 422, message: 'C\'ant process the request'}
+            }
         });
-        console.log(userCreated)
+    }catch(err){
+        res.status(err.code).json({
+            code: res.statusCode,
+            message: err.message
+        })
+    }
+        
 };
 
 const updateUser = (req, res) => {
