@@ -26,8 +26,8 @@ const getUser = (req, res) => {
 const createUser = (req, res) => {
         const form = formidable({ multiples: true });
         form.parse(req, (err, fields, files) => {
-            console.log(fields)
             if(fields.username !== null && fields.email !== null){
+                console.log(fields)
                 pool.query(
                     "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
                     [fields.username,fields.email],
