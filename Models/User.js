@@ -99,7 +99,7 @@ const updateUser = (req, res) => {
 const deleteUser = async (req,res) => {
     try {
         const id = req.params.id;
-        const regex = /^[1-9]+$/g;
+        const regex = /^[1-9]+*$/g;
         console.log(regex.test(id));
         let exist = null;
         
