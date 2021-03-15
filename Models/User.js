@@ -98,16 +98,16 @@ const updateUser = (req, res) => {
 
 const deleteUser = async (req,res) => {
     try {
+        const id = req.params.id;
+        let exist = null;
         if(Number.isInteger(req.params.id - 0) && req.params.id - 0 > 0){
-            const id = req.params.id;
+            exist = await pool.query('SELECT username,email FROM users WHERE id = $1',[id]);
         }else{
             throw {
                 code: 400,
                 message: "Bad request ..."
             }
         }
-        
-        const exist = await pool.query('SELECT username,email FROM users WHERE id = $1',[id]);
 
         if(exist.rowCount !== 1){
             throw {
