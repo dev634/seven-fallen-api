@@ -99,11 +99,10 @@ const updateUser = (req, res) => {
 const deleteUser = async (req,res) => {
     try {
         const regex = /^[0-9]+$/g;
-        console.log(regex.test(req.params.id - 0) && req.params.id - 0 > 0);
         const id = req.params.id;
         let exist = null;
         
-        if(!regex.test(id - 0) || !id - 0 > 0){
+        if(!regex.test(id - 0) && !id - 0 > 0){
             throw {
                 code: 400,
                 message: "Bad request ..."
