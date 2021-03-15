@@ -29,10 +29,10 @@ const createUser = (req, res) => {
         let userCreated = null;
         form.parse(req, async (err, fields, files) => {
             if(fields.username !== null && fields.email !== null){
-                 userCreated = await pool.query("INSERT INTO users(username,email) VALUES($1,$2) RETURNING username,email",[fields.username,fields.email]);    
-            }
-            if(userCreated.error){
-                throw {code: 422, message: 'C\'ant process the request'}
+               userCreated =  await pool.query("INSERT INTO users(username,email) VALUES($1,$2) RETURNING username,email",[fields.username,fields.email]); 
+               let data = await userCreated((err, req) => {
+                    console.log(err)
+               }) 
             }
         });
     }catch(err){
