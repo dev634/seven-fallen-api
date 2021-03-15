@@ -36,6 +36,7 @@ const createUser = (req, res) => {
                                 err.code = 422;
                                 throw err;
                             }
+                            console.log(result)
                             res.status(200).json({
                                 code: res.statusCode,
                                 message: `${result.username} successfully added ...`
