@@ -26,6 +26,7 @@ const getUser = (req, res) => {
 const createUser = (req, res) => {
         const form = formidable({ multiples: true });
         form.parse(req, (err, fields, files) => {
+            console.log(fields)
             if(fields.username !== null && fields.email !== null){
                 pool.query(
                     "INSERT INTO Users(username,email) VALUES($1,$2) RETURNING username,email",
@@ -98,14 +99,6 @@ const updateUser = (req, res) => {
 const deleteUser = async (req,res) => {
     try {
         const id = req.params.id;
-
-        if(typeof id === "string"){
-            throw {
-                code: 422,
-                message: "bad request"
-            }
-        }
-
         const exist = await pool.query('SELECT username,email FROM users WHERE id = $1',[id]);
 
         if(exist.rowCount === 0){
