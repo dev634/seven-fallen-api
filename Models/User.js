@@ -98,13 +98,15 @@ const updateUser = (req, res) => {
 
 const deleteUser = async (req,res) => {
     try {
-        if(Number.isNaN(req.params.id - 0) || req.params.id - 0 <= 0){
+        if(Number.isInteger(req.params.id - 0) && req.params.id - 0 > 0){
+            const id = req.params.id;
+        }else{
             throw {
                 code: 400,
                 message: "Bad request ..."
             }
-        };
-        const id = req.params.id;
+        }
+        
         const exist = await pool.query('SELECT username,email FROM users WHERE id = $1',[id]);
 
         if(exist.rowCount !== 1){
