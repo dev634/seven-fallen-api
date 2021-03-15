@@ -98,7 +98,7 @@ const updateUser = (req, res) => {
 
 const deleteUser = async (req,res) => {
     try {
-        if(Number.isNaN(req.params.id - 0) || req.params.id <= 0){
+        if(Number.isNaN(req.params.id - 0) || req.params.id - 0 <= 0){
             throw {
                 code: 400,
                 message: "Bad request ..."
