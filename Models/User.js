@@ -24,32 +24,29 @@ const getUser = (req, res) => {
 }
 
 const createUser = (req, res) => {
-    try{
         const form = formidable({ multiples: true });
         form.parse(req, async (err, fields, files) => {
             if(fields.username !== null && fields.email !== null){
                 pool.query("INSERT INTO users(username,email) VALUES($1,$2) RETURNING username,email",
                     [fields.username,fields.email],
                     (err, result) => {
-                        if(err){
-                            err.message = err.detail;
-                            err.code = 422;
-                            throw err;
+                        try {
+                            if(err){
+                                err.message = err.detail;
+                                err.code = 422;
+                                throw err;
+                            }
+                            res.status(200).json({
+                                code: res.statusCode,
+                                message: `${result.username} successfully added ...`
+                            })
+                        }catch(err){
+
                         }
-                        res.status(200).json({
-                            code: res.statusCode,
-                            message: `${result.username} successfully added ...`
-                        })
                     });  
                 }
             }
         );
-    }catch(err){
-        res.status(err.code).json({
-            code: res.statusCode,
-            message: err.message
-        })
-    }
         
 };
 
