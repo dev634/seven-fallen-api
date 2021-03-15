@@ -32,7 +32,7 @@ const createUser = (req, res) => {
                     (err, result) => {
                         try {
                             if(err){
-                                err.message = err.detail;
+                                err.message = "Unprocessed request";
                                 err.code = 422;
                                 throw err;
                             }
