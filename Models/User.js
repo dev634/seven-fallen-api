@@ -98,6 +98,7 @@ const updateUser = (req, res) => {
 
 const deleteUser = async (req,res) => {
     try {
+        console.log(req.params.id - 0);
         const id = req.params.id;
         const exist = await pool.query('SELECT username,email FROM users WHERE id = $1',[id]);
 
@@ -109,8 +110,6 @@ const deleteUser = async (req,res) => {
         }
 
         const deleted = await pool.query("DELETE FROM users WHERE id = $1 RETURNING *", [id]);
-
-        console.log(deleted)
 
         res.status(200).json({
             code: res.statusCode,
