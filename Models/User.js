@@ -25,7 +25,7 @@ const getUser = (req, res) => {
 
 const createUser = (req, res) => {
         const form = formidable({ multiples: true });
-        const userCreated = null;
+        let userCreated = null;
         form.parse(req, async (err, fields, files) => {
             if(fields.username !== null && fields.email !== null){
                  userCreated = await pool.query("INSERT INTO users(username,email) VALUES($1,$2) RETURNING username,email",[fields.username,fields.email]);    
